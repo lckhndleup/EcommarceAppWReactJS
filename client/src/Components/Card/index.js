@@ -13,14 +13,13 @@ function Card({item}) {
     const {addToBasket,items} = useBasket() ; //anasayfa da sepete ekleme işlemleri için
 
 
-    //ürünün sepette olup olmadığını kontrol edelim
-    const findBasketItem = items.find((basket_item) => basket_item._id === item._id); //item ile sayfadaki tüm ürünleri tutuyoruz ilk etapta 12 tane varsa 12 tane item ögesi vardır. Sonrasında bu 12 öge yada kaç tane ürün varsa sayfada tüm hepsinin hepsi item olarak tutuluyor. bizim burda amacımız bu bütün itemlar dan hepsinin arasından bizim seçtiğimiz ürünün id sini kıyaslayıp aynı olanı yakalayınca o ürünü döner. ve o ürünü almış oluruz. bu "findBasketItem" ı da aşagıda butona tıklanıldığı durumda kullanıcaz. kullanımı da şöyle: eğer butona basma esnasında "findBasketItem" varsa yani ürün eklenmiş demektir "remove from cart" yazacak buton üstünde. eğer "findBasketItem" yoksa bu da ürün eklenmemiş demektir. "add to cart " yazdırcaz.
+    
+    const findBasketItem = items.find((basket_item) => basket_item._id === item._id);
 
     return (
-        <Box borderRadius='lg' overflow='hidden' p={3}>  {/* chakra ui box kullanıyoruz*/}
+        <Box borderRadius='lg' overflow='hidden' p={3}>  
             <NavLink to={`/product/${item._id}`}>
-                {/* <Image src='https://picsum.photos/400/200.jpg'/>  lorem picsum websitesinden sürekli değişen fotolar*/} 
-
+               
                 <Image  src={item.photos[0]} loading='lazy'/>
                 <Box p={6}>
                     <Box display={'flex'} alignItems={'baseline'}>
