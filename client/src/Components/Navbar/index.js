@@ -2,16 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.css";
 import { Button } from "@chakra-ui/react";
-import { useAuth } from "../../Context/AuthContext"; //kullanıcı giriş yaptıktan sonra signup ve sign in butonuna kaldırcaz.
-import { useBasket } from "../../Context/BasketContext"; //sepet işlemleri
+import { useAuth } from "../../Context/AuthContext";
+import { useBasket } from "../../Context/BasketContext"; 
 
 function Navbar() {
-  const { loggedIn,user } = useAuth(); //kullanıcı giriş yaparsa yada kayıt olursa default u false olan loggedIn i SignUp componentinde login ile true yapıp sonrasında buraya geliyoruz.
+  const { loggedIn,user } = useAuth(); 
 
   const {items} = useBasket();
 
-  // console.log("giriş yapıldı mı? ",loggedIn);
-  // console.log("kullanıcı ",user);
+ 
   return (
     <div>
       <nav className={styles.nav}>
@@ -29,7 +28,7 @@ function Navbar() {
 
         <div className={styles.right}>
           {
-            !loggedIn &&( // eğer kullanıcı giriş yapmamışsa , yani loggedIn false ise butonları gösterelim.
+            !loggedIn &&( 
               <React.Fragment>
                 <NavLink to="/signin">
                   <Button colorScheme="pink">Sign in</Button>
@@ -42,7 +41,7 @@ function Navbar() {
             )
           }
           
-          {/* useBasketten gelen item da 1 veya daha fazla ürün varsa o ürüne götürmek istiyoruz Navlink ile */}
+          
           {
             loggedIn && (
               <React.Fragment>
@@ -55,15 +54,15 @@ function Navbar() {
                 }
 
 
-                {/*admin giriş yaptıysa navbarda buton ile gösterelim.kullanıcı loggedin oldugu durumda user varsa ve role ü admin ise bunu gösterecezğiz. role ü saedece admin olanda bu işlemi yapıcaz*/}
+              
                 {
                   user?.role === 'admin' && (
-                    <NavLink to='/admin'>  {/*admin page e yönlenecek*/}
-                      <Button colorScheme="pink" variant='ghost'>Admin</Button> {/*variant ghost : arka planı almayacak şekilde*/}
+                    <NavLink to='/admin'> 
+                      <Button colorScheme="pink" variant='ghost'>Admin</Button> 
                     </NavLink>
                   )
                 }
-                {/* kullanıcı loggedin olduysa profil butonu */}
+               
 
                   <NavLink to='/profile'>
                   <Button colorScheme="blue">Profile </Button>
