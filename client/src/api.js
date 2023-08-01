@@ -1,7 +1,9 @@
 import axios from "axios";
 
-//--------------------------------------------------------------------------------------------------------------------
-//tek tek autharization için access token vermek yerine bu yöntemi yazıyoruz. Kullanıcı oturumu açık tutmak için yazdık. sayfa her yenilendiği zaman oturumu açık tutmada kullanıyoruz.   
+
+
+
+//Autharization access token . for session . 
 axios.interceptors.request.use(function (config) {
     const {origin} = new URL(config.url);
     const allowedOrigins = [process.env.REACT_APP_BASE_ENDPOINT];
@@ -18,7 +20,7 @@ axios.interceptors.request.use(function (config) {
 
 //----------------------------------------------------------------------------------------------------------------------- 
 
-//veriyi axios ile çekip Products a fonksiyon olarak atıcaz.
+//We will pull the data with axios and throw it into Products as a function.
 export const fetchProductList = async ({ pageParam = 0 }) => {  //infinite query yapmak için buraya parametre olarak pageParam=0 verdik.
     const {data} = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/product?page=${pageParam}`); // sayfaya bir buton koyarak 12 şer olarak tıklanıldığında veri getirecek eğer veri yok ise de bunu belirtecek. ?page=${pageParam} ifadesini url e ekleyip InfıniteQuery de kullancak.
 
@@ -26,7 +28,7 @@ export const fetchProductList = async ({ pageParam = 0 }) => {  //infinite query
 }
 
 
-//ProductDetail'a useParams kullanarak product_id bilgisini alıyoruz ve gelen product_id ye göre burada  veriyi url adresine göre çekmek istiyoruz.
+//Using Product Detail useParams, we get the product_id information and according to the incoming product id, we want to pull the data according to the url address.
 export const fetchProduct = async (product_id) => {
     const {data} = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/product/${product_id}`);
 
@@ -35,7 +37,7 @@ export const fetchProduct = async (product_id) => {
 
 
 
-//Sıgn Up işlemi 
+//Sıgn Up process
 export const fetchRegister = async (input)=>{
     const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/auth/register`,input);
 
@@ -43,15 +45,15 @@ export const fetchRegister = async (input)=>{
 }
 
 
-//sayfa yenilendiğinde oturumun açık kalması için .kullanıcının user, id ve email bilgilerini almak için . 
+//session , login and login situation
 export const fetchMe = async () => {
     const {data} = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/auth/me`);
     return data;
 }
 
-//endpoint api
 
-//oturum kapatma işlemi . bunu Contextimizde kullanıp , Profile sayfasındaki butona tıklanılma durumunda çıkış yapmak için kullancaz.
+
+//Logout
 
 export const fetchLogout = async () => {
     const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/auth/logout`,{
@@ -63,7 +65,7 @@ export const fetchLogout = async () => {
 }
 
 
-//Sign In işlemi
+//Sign In 
 
 export const fetchLogin = async (input) => {
     const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/auth/login`,input);
@@ -72,7 +74,7 @@ export const fetchLogin = async (input) => {
 
 
 
-//sipariş için adres gönderme
+//order
 
 export const postOrder = async (input) => {
 	const { data } = await axios.post(
@@ -85,7 +87,7 @@ export const postOrder = async (input) => {
 
 
 
-
+//admin order
 export const fetchOrders = async () => {
 	const { data } = await axios.get(
 		`${process.env.REACT_APP_BASE_ENDPOINT}/order`
@@ -95,7 +97,7 @@ export const fetchOrders = async () => {
 
 
 
-//sipariş silme
+//order delete
 
 export const deleteProduct = async (product_id) => {
     const {data} = await axios.delete(`${process.env.REACT_APP_BASE_ENDPOINT}/product/${product_id}`);
@@ -103,7 +105,7 @@ export const deleteProduct = async (product_id) => {
 }
 
 
-//ürün güncelleme
+//product update
 
 export const updateProduct = async (input,product_id) => {
     const {data} = await axios.put(`${process.env.REACT_APP_BASE_ENDPOINT}/product/${product_id}`,input);
@@ -113,7 +115,7 @@ export const updateProduct = async (input,product_id) => {
 
 
 
-//yeni ürün ekleme
+//add new product
 
 export const postProduct = async (input) => {
 	const { data } = await axios.post(
