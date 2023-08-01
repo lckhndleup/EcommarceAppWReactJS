@@ -44,16 +44,16 @@ function Signup() {
           password: values.password,
         });
         
-        // console.log(registerResponse);
-        //login context i kullanalım.kullanıcı giriş yaparsa yada kayıt olursa default u false olan loggedIn i true yapalım ve yine context den gelen user ile data.user bilgisini verelim .Sonrasında Navbar a login ile true yaptığımız loggedIn i gönderelim.
+
+
         login(registerResponse);
         
-        navigate("/"); //kullanıcı kayıt olduktan sonra anasayfaya yönlensin istedik.
-        // console.log(login);
+        navigate("/"); 
+
 
         setSuccessMessage("başarıyla kaydedildi...");
       } catch (e) {
-        bag.setErrors({ general: e.response.data.message }); // bir hata gerçekleşiyorsa custom bir hata atayalım.
+        bag.setErrors({ general: e.response.data.message }); 
       }
     },
   });
@@ -74,7 +74,7 @@ function Signup() {
             )}
           </Box>
 
-          {/* hata oluştuğunda ekrana gösterme */}
+
           <Box my={5}>
             {formik.errors.general && (
               <Alert status="error">{formik.errors.general}</Alert>
@@ -92,7 +92,7 @@ function Signup() {
                   value={formik.values.email}
                   isInvalid={formik.touched.email && formik.errors.email}
                 >
-                  {/*alanda hata varsa çerçeveyi kırmızı yapar*/}
+
                 </Input>
               </FormControl>
               <FormControl>
