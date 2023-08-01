@@ -2,45 +2,46 @@ import {useState,useEffect,useContext, createContext} from 'react';
 import { fetchMe ,fetchLogout} from '../api';
 
 
-//kullanıcı kayıt olduğunda veya login işlemi gerçeklekştiğinde Componentlerimizi manipüle etmek için Context oluşturuyoruz.
+
 
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
 
-    const [user,setUser] = useState(null); //user null olduğunda login değildir. 
+    const [user,setUser] = useState(null); 
+    
 
     
-    const [loggedIn,setLoggedIn] = useState(false);  //kulannıcı o an login mi değil mi tutan state
+    const [loggedIn,setLoggedIn] = useState(false); 
 
 
-    useEffect(()=> {  //SAYFA YENİLENDİĞİNDE OTURUM AÇIK KALMASI.sayfa her yenilendiğinde , ( did mount oldugunda ) kullanıcının  oturumu kapatılmasını engellemek . bunun için fetchMe yi kullanıcaz.
+    useEffect(()=> {  
         (async ()=> {
             try{
-                const me = await fetchMe(); // fetchMe : api.js de yazdıgımız kullanıcının user, id ve email bilgilerini aldıgım endpointi verir.
-                setLoggedIn(true);  //artık sayfa her yenilendiği zaman oturum kapanmasın loggedIn i true ya çekiyoruz.
-                setUser(me);   //user in bilgilerine fetchMe den gelen bilgileri koyuyoruz. 
+                const me = await fetchMe(); 
+                setLoggedIn(true);  
+                setUser(me); 
             }catch(error){}
         })();
     },[])
 
-    const login = (data) => { //kullanıcının giriş yapması.
+    const login = (data) => { 
         setLoggedIn(true)
         setUser(data.user);
-        localStorage.setItem('access-token',data.accessToken);//giriş yapıldıktan sonra local storage dan access token alıcaz.oturumu açık tutmak için yapıyoruz.
+        localStorage.setItem('access-token',data.accessToken);
         localStorage.setItem('refresh-token',data.refreshToken);
     }
 
-    const logout = async (callback) => {  //çıkış işlemi için Profile da kullanmak üzere hazırlıyoruz.
+    const logout = async (callback) => {  //logout process for to use in profile 
         setLoggedIn(false);
         setUser(null);
 
-        await fetchLogout(); //apiden gelen veri.
+        await fetchLogout(); 
 
-        localStorage.removeItem('access-token'); //access ve refresh token ı localstorage dan  kaldırıyoruz.
+        localStorage.removeItem('access-token'); 
         localStorage.removeItem('refresh-token');
 
-        callback() ; //oturum kapandıgında sayfa yönlendirmesi yapmak için yazdık.bu callback fonksiyonu oturum kapandıktan sonra , database den access ve refresh token lar silindikten sonra çalışacak ve sayfa yönlendirmesi yapıcaz . bunu da Profile sayfasında logout da kullanmak için yaptık.
+        callback() ; 
     }
 
     const values = {
