@@ -32,17 +32,16 @@ function Basket() {
   const initialRef = useRef();
 
   const handleSubmit = async () => {  //siparişte save butona basıldıgında girilen bilgileri submit etmek için 
-    const itemIds = items.map((item) => item._id); //sepete gelen ürünlerin id lerini alıyoruz.
+    const itemIds = items.map((item) => item._id); 
 
     const input = {
       address,
       items: JSON.stringify(itemIds),
     };
 
-    await postOrder(input);//api den gelen postOrder ile inputları db ye gönderdik. 
-    //artık sepetin boşaltılması ve pencerenin kapatılması  gerekiyor.
+    await postOrder(input);/
     emptyBasket(); //itemin içini boşaltan fonksiyon.
-    onClose(); //pencereyi kapatır.(açılır pencere useDisclousere içerisinden hazır kütüphane olarak çektik)
+    onClose(); 
   };
 
   //-------------------------------------------------------------------------------------
