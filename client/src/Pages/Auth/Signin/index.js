@@ -23,8 +23,8 @@ function Signin() {
   
   const {login} = useAuth();
 
-  const navigate =  useNavigate(); //sayfa yönlendirmesi için oluşturduk.
-  const [successMessage, setSuccessMessage] = useState(""); //alert message için .
+  const navigate =  useNavigate(); 
+  const [successMessage, setSuccessMessage] = useState(""); /
 
   const formik = useFormik({
     initialValues: {
@@ -35,24 +35,23 @@ function Signin() {
     validations,
 
     onSubmit: async (values, bag) => {
-      //values : formdaki datalar , bag : formdaki yapacağımız işlemler.
+
 
       try {  //eğer problem yoksa 
-        const loginResponse = await fetchLogin({ //fetchLogin api den geldi.
+        const loginResponse = await fetchLogin({ 
           email: values.email,
           password: values.password,
         });
+
+
+        login(loginResponse);
         
-        // console.log(loginResponse); 
-        //login context i kullanalım.kullanıcı giriş yaparsa yada kayıt olursa default u false olan loggedIn i true yapalım ve yine context den gelen user ile data.user bilgisini verelim .Sonrasında Navbar a login ile true yaptığımız loggedIn i gönderelim.
-        login(loginResponse); //login (contexten gelen) içine bir data alır ve user içine data.user , setLoggeeIn i true yapar.localstorage da access ve refresh tokenları set ler.
-        
-        navigate("/"); //kullanıcı kayıt olduktan sonra anasayfaya yönlensin istedik.
-        // console.log(login);
+        navigate("/"); 
+
 
         setSuccessMessage("başarıyla kaydedildi...");
       } catch (e) {
-        bag.setErrors({ general: e.response.data.message }); // bir hata gerçekleşiyorsa custom bir hata atayalım.
+        bag.setErrors({ general: e.response.data.message }); 
       }
     },
   });
@@ -73,7 +72,7 @@ function Signin() {
             )}
           </Box>
 
-          {/* hata oluştuğunda ekrana gösterme */}
+
           <Box my={5}>
             {formik.errors.general && (
               <Alert status="error">{formik.errors.general}</Alert>
@@ -91,7 +90,7 @@ function Signin() {
                   value={formik.values.email}
                   isInvalid={formik.touched.email && formik.errors.email}
                 >
-                  {/*alanda hata varsa çerçeveyi kırmızı yapar*/}
+
                 </Input>
               </FormControl>
               <FormControl>
