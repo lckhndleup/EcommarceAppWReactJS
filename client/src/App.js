@@ -27,11 +27,11 @@ function App() {
         <Navbar /> {/* üst menü*/}
         <div id="content">
           <Routes>
-            <Route path="/" element={<Products />} /> {/* products , products klasörü altındaki index.js dosyasından geliyor*/}
-            <Route path='product/:product_id' element={<ProductDetail/>} />  {/* Ürün detay sayfası*/}
-            <Route path='/signin' element={<Signin />}/>    {/* giriş sayfası*/}
-            <Route path='/signup' element={<Signup />} />   {/* kayıt sayfası*/}
-            <Route element={<ProtectedRoute />}>  {/*kullnıcı login durumunu kontrol ederek yönlendirme yaptırdığımız ProtectedRoute metodu ile profile sayfasını sarmaladık ki ona göre profile sayfasına giriş izni durumunu kontrol ediyoruz.aynı  şekilde admin sayfayasını da sarmaladık. normal bir user yada giriş yapılmadan direk linki browserda yazarak girmesini engelledik.*/}
+            <Route path="/" element={<Products />} /> 
+            <Route path='product/:product_id' element={<ProductDetail/>} />  {/* product detail */}
+            <Route path='/signin' element={<Signin />}/>    {/* login page*/}
+            <Route path='/signup' element={<Signup />} />   {/* signup page*/}
+            <Route element={<ProtectedRoute />}> 
                 <Route path='/profile' element={<Profile />}/>  {/* Profil detay sayfası*/}
             </Route> 
 
@@ -46,9 +46,9 @@ function App() {
 
             
 
-            <Route path='/basket' element={<Basket />}/>  {/* sepet sayfası*/}
+            <Route path='/basket' element={<Basket />}/>  {/*basket page*/}
 
-            <Route path='*' element={<Error404 />} /> {/* Hata sayfası*/}
+            <Route path='*' element={<Error404 />} /> {/*error page*/}
             
 
           </Routes>
