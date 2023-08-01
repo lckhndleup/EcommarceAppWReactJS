@@ -1,0 +1,14 @@
+
+
+
+.admin-menu {
+    display: flex;
+    padding: 10px;
+    gap: 20px;
+}
+
+.admin-menu li {
+    font-weight: bold;
+    font-size: 25px;
+
+}
